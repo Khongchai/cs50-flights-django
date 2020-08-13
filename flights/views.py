@@ -8,3 +8,16 @@ def index(request):
         "Flights": Flight.objects.all()
     })
 
+def flight(request, flight_id):
+    #pk = primary key, whatever it is called
+    try:
+        flight = Flight.objects.get(pk=flight_id)
+    except:
+        return HttpResponse("Error, flight does not exist")
+    
+    return render(request, "flights/flight.html", {
+        "flight": flight,
+        #access passengers through related name; follow the arrow back to its origin
+        "passengers": flight.passengers.all()
+    })
+

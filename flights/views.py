@@ -11,6 +11,7 @@ def index(request):
 def flight(request, flight_id):
     #pk = primary key, whatever it is called
     try:
+        #create an object of Flight whose id equals flight ID
         flight = Flight.objects.get(pk=flight_id)
     except:
         return HttpResponse("Error, flight does not exist")

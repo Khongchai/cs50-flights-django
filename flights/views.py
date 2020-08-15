@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Flight, Airport
+from .models import Flight, Airport, Passenger
+from django.http import HttpResponseRedirect
+from django.urls import reverse
 
 
 def index(request):
@@ -15,10 +17,23 @@ def flight(request, flight_id):
         flight = Flight.objects.get(pk=flight_id)
     except:
         return HttpResponse("Error, flight does not exist")
+    onboardPassengers = flight.passengers.all()
+    otherPassengers = Passenger.objects.exclude(flights=flight).all()
+
     
     return render(request, "flights/flight.html", {
         "flight": flight,
         #access passengers through related name; follow the arrow back to its origin
-        "passengers": flight.passengers.all()
+        "passengers": onboardPassengers,
+        "none_passengers": otherPassengers
     })
+
+
+def book(request, flight_id):
+    if request.method == "POST":
+        flight = Flight.objects.get(pk=flight_id)
+        passenger = Passenger.objects.get(pk=int(request.POST["passenger"]))
+        passenger.flights.add(flight)
+        return HttpResponseRedirect(reverse("flight", args=(flight.id, )))
+
 

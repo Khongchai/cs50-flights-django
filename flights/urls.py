@@ -1,5 +1,5 @@
 from django.urls import path
-from . import views
+from flights import views
 
 app_name = "flights"
 

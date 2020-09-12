@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
-from .models import Flight, Airport, Passenger
+from flights.models import Flight, Airport, Passenger
 from django.http import HttpResponseRedirect
 from django.urls import reverse
 
@@ -16,7 +16,7 @@ def flight(request, flight_id):
         #create an object of Flight whose id equals flight ID
         flight = Flight.objects.get(pk=flight_id)
     except:
-        return HttpResponse("Error, flight does not exist")
+        return HttpResponse("Error, flight does not exist", status=404)
     onboardPassengers = flight.passengers.all()
     otherPassengers = Passenger.objects.exclude(flights=flight).all()
 
@@ -25,7 +25,7 @@ def flight(request, flight_id):
         "flight": flight,
         #access passengers through related name; follow the arrow back to its origin
         "passengers": onboardPassengers,
-        "none_passengers": otherPassengers
+        "non_passengers": otherPassengers
     })
 
 

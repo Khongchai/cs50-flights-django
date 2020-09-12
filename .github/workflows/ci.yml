@@ -12,7 +12,7 @@ jobs:
       #what commands to run
       run:
         pip3 install --user django
-        python3 manage.py test
+        python manage.py test
         
         
 

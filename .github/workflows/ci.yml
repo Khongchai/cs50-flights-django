@@ -14,5 +14,5 @@ jobs:
         #install django on Ubuntu
         pip3 install --user django
         #run test
-        python3 manage.py test
+        python manage.py test
 

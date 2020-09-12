@@ -2,14 +2,11 @@ name: Testing
 on: push
 
 jobs: 
-  #job name can be anything
   test_project:
     runs-on: ubuntu-latest
     steps:
-    #use checkout process written by github
     - uses: actions/checkout@v2
     - name: Run Django unit tests
-      #what commands to run
       run:
         pip3 install --user django
         python manage.py test

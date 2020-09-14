@@ -73,10 +73,7 @@ class FlightTestCase(TestCase):
 
     def test_flight_page_passengers(self):
         """check number of passengers in a flight"""
-        try:
-            f = Flight.objects.get(pk=1)
-        except Flight.DoesNotExist:
-            f = None
+        f = Flight.objects.get(pk=0)
         p = Passenger.objects.create(first="Alice", last="Adams")
         f.passengers.add(p)
         c = Client()
@@ -86,10 +83,7 @@ class FlightTestCase(TestCase):
 
     def test_fligth_page_non_passengers(self):
         """check number of passengers not in a flight"""
-        try:
-            f = Flight.objects.get(pk=1)
-        except Flight.DoesNotExist:
-            f = None
+        f = Flight.objects.get(pk=0)
         p = Passenger.objects.create(first="Alice", last="Liddel")
         
         c = Client()

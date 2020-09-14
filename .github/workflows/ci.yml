@@ -29,7 +29,6 @@ jobs:
         pip install pytest-django
     - name: Run migrations
       run: 
-        python manage.py makemigrations
         python manage.py migrate
     - name: Run tests
       run: python3 manage.py test
